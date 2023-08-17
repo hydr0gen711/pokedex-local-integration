@@ -1,0 +1,21 @@
+@startuml Pokemon entities
+entity Pokemon {
+    * id number unique
+    --
+    * name string
+    slug string
+    ThumbnailImage
+    height number
+    weight number
+    type string[]
+    weakness string[]
+    abilities string[]
+}
+entity Type {
+    * id number unique
+    -- 
+    name string
+}
+
+Pokemon }|--|{ Type
+@enduml

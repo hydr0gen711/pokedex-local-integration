@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Pokemon {
+  id             Int    @id
+  name           String
+  ThumbnailImage String
+  height         Float
+  weight         Float
+
+  type relation[]
+}
+
+model Type {
+  id       Int    @id @default(autoincrement())
+  name     String
+  typesId  Int
+  types    Type   @relation("TypeWeakness", fields: [typesId], references: [id])
+  weakness Type[] @relation("TypeWeakness")
+
+  pokemon relation[]
+}
+
+model relation {
+  pokemon   Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId Int
+  type      Type    @relation(fields: [typeId], references: [id])
+  typeId    Int
+
+  @@id([pokemonId, typeId])
+}
