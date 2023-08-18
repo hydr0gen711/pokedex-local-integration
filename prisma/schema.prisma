@@ -21,11 +21,10 @@ model Pokemon {
 }
 
 model Type {
-  id       Int    @id @default(autoincrement())
-  name     String
-  typesId  Int
-  types    Type   @relation("TypeWeakness", fields: [typesId], references: [id])
-  weakness Type[] @relation("TypeWeakness")
+  id        Int    @id @default(autoincrement())
+  name      String
+  effective Type[] @relation("Effective-Weakness")
+  weakness  Type[] @relation("Effective-Weakness")
 
   pokemon relation[]
 }
